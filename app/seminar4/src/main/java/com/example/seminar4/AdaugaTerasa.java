@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,7 +61,10 @@ public class AdaugaTerasa extends AppCompatActivity {
 
                 Terasă terasa=new Terasă(denumire, capacitate, rating, program, status);
                 Intent it=new Intent();
-                it.putExtra("", terasa);
+                it.putExtra("terasa", terasa);
+                Toast.makeText(AdaugaTerasa.this, terasa.toString(), Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK,it);
+                finish();
             }
 
 
