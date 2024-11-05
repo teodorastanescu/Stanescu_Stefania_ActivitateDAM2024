@@ -2,8 +2,10 @@ package com.example.seminar4;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
@@ -38,12 +40,30 @@ public class AdaugaTerasa extends AppCompatActivity {
                 EditText etCapacitate= findViewById(R.id.editTextText2);
                 int capacitate= Integer.parseInt(etCapacitate.getText().toString());
 
-
                 RatingBar etRating= findViewById(R.id.ratingBar);
+                float rating= etRating.getRating();
 
-                Spinner program= findViewById(R.id.spinner);
-                Switch status= findViewById(R.id.switch1);
+                Spinner etSpinner= findViewById(R.id.spinner);
+                String program= etSpinner.getSelectedItem().toString();
+
+                Switch acord= findViewById(R.id.switch1);
+                String deschis="";
+                if(acord.isChecked()){
+                    deschis=acord.getTextOn().toString();
+                }
+                else{
+                    deschis=acord.getTextOff().toString();
+                }
+                CheckBox cbStatus=findViewById(R.id.checkBox);
+                boolean status=((CheckBox)findViewById(R.id.checkBox)).isChecked();
+
+
+                Terasă terasa=new Terasă(denumire, capacitate, rating, program, status);
+                Intent it=new Intent();
+                it.putExtra("", terasa);
             }
+
+
         });
     }
 }

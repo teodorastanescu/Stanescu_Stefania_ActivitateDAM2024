@@ -1,15 +1,18 @@
 package com.example.seminar4;
 
-public class Terasă {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Terasă implements Parcelable {
 
     private String denumire;
     private int capacitate;
     private float rating;
     private String program;
 
-    private boolean status;
+    private Boolean status;
 
-    public Terasă(String denumire, int capacitate, float rating, String program, boolean status) {
+    public Terasă(String denumire, int capacitate, float rating, String program, Boolean status) {
         this.denumire = denumire;
         this.capacitate = capacitate;
         this.rating = rating;
@@ -22,8 +25,42 @@ public class Terasă {
         this.capacitate=0;
         this.rating= 0.0f;
         this.program=" ";
-        this.status=true;
+        this.status=false;
     }
+
+    protected Terasă(Parcel in) {
+        denumire = in.readString();
+        capacitate = in.readInt();
+        rating = in.readFloat();
+        program = in.readString();
+        status = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(denumire);
+        dest.writeInt(capacitate);
+        dest.writeFloat(rating);
+        dest.writeString(program);
+        dest.writeByte((byte) (status ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Terasă> CREATOR = new Creator<Terasă>() {
+        @Override
+        public Terasă createFromParcel(Parcel in) {
+            return new Terasă(in);
+        }
+
+        @Override
+        public Terasă[] newArray(int size) {
+            return new Terasă[size];
+        }
+    };
 
     public String getDenumire() {
         return denumire;
@@ -57,11 +94,11 @@ public class Terasă {
         this.program = program;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
-    public boolean isStatus() {
+    public Boolean isStatus() {
         return status;
     }
 
