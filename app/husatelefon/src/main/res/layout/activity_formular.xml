@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Formular">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/material"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Material:"></TextView>
+        <EditText
+            android:id="@+id/etMaterial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="......."></EditText>
+        <TextView
+            android:id="@+id/lungime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lungime:"></TextView>
+        <EditText
+            android:id="@+id/etLungime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint=".............."></EditText>
+
+        <TextView
+            android:id="@+id/model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Model:"></TextView>
+
+        <Spinner
+            android:id="@+id/spModel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/spinner_entries">
+
+        </Spinner>
+
+
+        <Button
+            android:id="@+id/btnFormular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adauga date"></Button>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

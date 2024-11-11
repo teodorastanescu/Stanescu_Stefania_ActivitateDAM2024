@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HusaTelefonn</string>
+    <string-array name="spinner_entries">
+        <item>Portofel</item>
+        <item>Carcasa</item>
+    </string-array>
+
+</resources>

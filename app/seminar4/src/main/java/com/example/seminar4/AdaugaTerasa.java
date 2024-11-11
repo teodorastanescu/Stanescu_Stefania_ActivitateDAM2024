@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -30,6 +31,26 @@ public class AdaugaTerasa extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Intent intent = getIntent();
+        if (intent.hasExtra("terasa"))
+        {
+            Terasă terasa = intent.getParcelableExtra("apartament");
+            EditText etDenumire= findViewById(R.id.editTextText);
+            EditText etCapacitate= findViewById(R.id.editTextText2);
+            RatingBar etRating= findViewById(R.id.ratingBar);
+            Spinner etSpinner= findViewById(R.id.spinner);
+            CheckBox cbStatus=findViewById(R.id.checkBox);
+
+            etDenumire.setText(terasa.getDenumire());
+            etCapacitate.setText(String.valueOf(terasa.getCapacitate()));
+            etRating.setRating(terasa.getRating());
+            //etSpinner.setText(terasa.getProgram());
+            cbStatus.setChecked(terasa.getStatus());
+
+
+        }
+
 
         Button btn1=findViewById(R.id.button);
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +83,7 @@ public class AdaugaTerasa extends AppCompatActivity {
                 Terasă terasa=new Terasă(denumire, capacitate, rating, program, status);
                 Intent it=new Intent();
                 it.putExtra("terasa", terasa);
-                Toast.makeText(AdaugaTerasa.this, terasa.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdaugaTerasa.this, terasa.toString(), Toast.LENGTH_LONG).show();
                 setResult(RESULT_OK,it);
                 finish();
             }

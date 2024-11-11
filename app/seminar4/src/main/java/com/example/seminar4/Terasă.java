@@ -78,6 +78,10 @@ public class Terasă implements Parcelable {
         return program;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
     public void setDenumire(String denumire) {
         this.denumire = denumire;
     }
