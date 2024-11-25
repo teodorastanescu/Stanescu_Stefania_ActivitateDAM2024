@@ -43,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btnWeather= findViewById(R.id.button4);
+        btnWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it=new Intent(getApplicationContext(),Weather.class);
+                startActivityForResult(it, 403);
+            }
+        });
+
         Button butonLista=findViewById(R.id.button3);
         butonLista.setOnClickListener(new View.OnClickListener() {
             @Override

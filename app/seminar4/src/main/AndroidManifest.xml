@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Seminar1099">
         <activity
+            android:name=".Weather"
+            android:exported="false" />
+        <activity
             android:name=".ListaTerase"
             android:exported="false" />
         <activity
