@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -45,7 +46,11 @@ public class AdaugaTerasa extends AppCompatActivity {
             etDenumire.setText(terasa.getDenumire());
             etCapacitate.setText(String.valueOf(terasa.getCapacitate()));
             etRating.setRating(terasa.getRating());
-            //etSpinner.setText(terasa.getProgram());
+            ArrayAdapter<String> adapter = (ArrayAdapter<String>) etSpinner.getAdapter();
+            int position = adapter.getPosition(terasa.getProgram());
+            if (position >= 0) {
+                etSpinner.setSelection(position);
+            }
             cbStatus.setChecked(terasa.getStatus());
 
 

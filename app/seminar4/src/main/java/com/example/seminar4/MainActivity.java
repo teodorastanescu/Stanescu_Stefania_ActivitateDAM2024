@@ -28,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         terase= new ArrayList<>();
+
+        String denumire="Animaletto";
+        int capacitate=40;
+        float rating=4.5f;
+        String program= "";
+        boolean status=true;
+        terase.add(new Terasă(denumire,capacitate,rating,program,status));
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

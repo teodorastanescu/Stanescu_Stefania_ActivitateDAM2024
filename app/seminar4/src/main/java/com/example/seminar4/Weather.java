@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,6 +31,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class Weather extends AppCompatActivity {
+    String text = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,47 +44,98 @@ public class Weather extends AppCompatActivity {
             return insets;
         });
 
+        Executor executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.myLooper());
 
+
+        EditText weatherInput= findViewById(R.id.editTextText3);
         Button btnSend= findViewById(R.id.button5);
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String link= "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=2vLdJuqKYv22AARdtA9k6qY9LRdGq3G4&q=Bucure%C8%99ti";
-                Executor executor = Executors.newSingleThreadExecutor();
-                Handler handler = new Handler(Looper.myLooper());
+                String city = weatherInput.getText().toString();
+                String apiKey = "2vLdJuqKYv22AARdtA9k6qY9LRdGq3G4";
+                String link = "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=" + apiKey + "&q=" + city;
+
 
                 executor.execute(new Runnable() {
+
                     @Override
                     public void run() {
                         HttpURLConnection connection = null;
+                        BufferedReader reader = null;
                         try {
                             URL url = new URL(link);
                             connection = (HttpURLConnection) url.openConnection();
-                            InputStream is = connection.getInputStream();
-                            InputStreamReader isr= new InputStreamReader(is);
-                            BufferedReader bufferedReader= new BufferedReader(isr);
-                            StringBuilder response= new StringBuilder();
-                            String line;
-                            while((line= bufferedReader.readLine())!=null){
-                                response.append(line);
+
+                            connection.setRequestMethod("GET");
+                            connection.setConnectTimeout(10000);
+                            connection.setReadTimeout(10000);
+
+                            int responseCode = connection.getResponseCode();
+                            if (responseCode == HttpURLConnection.HTTP_OK) {
+                                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                                StringBuilder response = new StringBuilder();
+                                String line;
+                                while ((line = reader.readLine()) != null) {
+                                    response.append(line);
+                                }
+
+                                JSONArray jsonResponse = new JSONArray(response.toString());
+                                JSONObject object = jsonResponse.getJSONObject(0);
+                                String cityKey = object.getString("Key");
+
+                                String weatherUrl = "http://dataservice.accuweather.com/forecasts/v1/daily/1day/" + cityKey + "?apikey=9YzUUfT2jINdALL8auzA2qWKxBGCOnuq&metric=true";
+
+                                try {
+                                    URL url2 = new URL(weatherUrl);
+                                    connection = (HttpURLConnection) url2.openConnection();
+                                    int responseCode2 = connection.getResponseCode();
+                                    if (responseCode2 == HttpURLConnection.HTTP_OK) {
+                                        reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                                        StringBuilder response2 = new StringBuilder();
+                                        String line2;
+                                        while ((line2 = reader.readLine()) != null) {
+                                            response2.append(line2);
+                                        }
+                                        JSONObject object1 = new JSONObject(response2.toString());
+                                        JSONArray array1 = object1.getJSONArray("DailyForecasts");
+
+                                        JSONObject object2 = array1.getJSONObject(0);
+                                        JSONObject object3 = object2.getJSONObject("Temperature");
+                                        JSONObject minimum = object3.getJSONObject("Minimum");
+                                        JSONObject maximum = object3.getJSONObject("Maximum");
+                                        String valueMin = minimum.getString("Value");
+                                        String valueMax = maximum.getString("Value");
+
+                                        text = "Temperatura min: " + valueMin + "  Temperatura max: " + valueMax;
+                                    }
+                                } finally {
+                                    handler.post(() -> {
+                                        TextView cityKeyTextView = findViewById(R.id.textView9);
+                                        cityKeyTextView.setText(text);
+                                    });
+                                }
                             }
-                            JSONArray vector= new JSONArray(response.toString());
-                        } catch (MalformedURLException e) {
-                            throw new RuntimeException(e);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                        } catch (Exception e) {
+                            handler.post(() -> {
+                                TextView cityKeyTextView = findViewById(R.id.textView9);
+                                cityKeyTextView.setText("Error: " + e.getMessage());
+                                throw new RuntimeException(e.getMessage());
+                            });
+                        } finally {
+                            if (reader != null) {
+                                try {
+                                    reader.close();
+                                } catch (Exception ignored) {}
+                            }
+                            if (connection != null) {
+                                connection.disconnect();
+                            }
                         }
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-
-                            }
-                        });
                     }
-
                 });
             }
         });
-
     }
 }

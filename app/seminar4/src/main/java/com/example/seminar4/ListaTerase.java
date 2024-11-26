@@ -20,6 +20,8 @@ import java.util.List;
 public class ListaTerase extends AppCompatActivity {
 
     List<Terasă> listaNoua=null;
+    private int idModificat=0;
+    private TerasaAdapter adapter=null;
 
 
     @Override
@@ -38,21 +40,25 @@ public class ListaTerase extends AppCompatActivity {
         listaNoua = it.getParcelableArrayListExtra("terase");
 
         ListView lv=findViewById(R.id.listview);
-        ArrayAdapter<Terasă> adaptor = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, listaNoua);
-        lv.setAdapter(adaptor);
+        //ArrayAdapter<Terasă> adaptor = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, listaNoua);
+        //lv.setAdapter(adaptor);
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ListaTerase.this, listaNoua.get(position).toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        adapter=new TerasaAdapter(listaNoua,getApplicationContext(),R.layout.row_list);
+        lv.setAdapter(adapter);
+
+
+//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(ListaTerase.this, listaNoua.get(position).toString(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long id) {
                 listaNoua.remove(i);
-                adaptor.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
                 return false;
             }
         });
