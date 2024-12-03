@@ -3,12 +3,28 @@ package com.example.seminar4;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import org.jetbrains.annotations.NotNull;
+
+@Entity(tableName = "Terasa")
 public class Terasă implements Parcelable {
 
+    @PrimaryKey(autoGenerate = true)
+    @NotNull
     private String denumire;
+
+
     private int capacitate;
+
+
     private float rating;
+
+
     private String program;
+
 
     private Boolean status;
 
