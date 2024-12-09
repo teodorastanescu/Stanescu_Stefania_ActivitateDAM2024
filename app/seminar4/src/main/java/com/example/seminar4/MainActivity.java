@@ -51,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btnFavorite=findViewById(R.id.button6);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it=new Intent(getApplicationContext(),MainActivityTerasePreferate.class);
+                startActivityForResult(it, 403);
+            }
+        });
+
         Button btnWeather= findViewById(R.id.button4);
         btnWeather.setOnClickListener(new View.OnClickListener() {
             @Override

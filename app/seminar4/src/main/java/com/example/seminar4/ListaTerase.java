@@ -1,6 +1,7 @@
 package com.example.seminar4;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -57,8 +58,12 @@ public class ListaTerase extends AppCompatActivity {
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long id) {
-                listaNoua.remove(i);
-                adapter.notifyDataSetChanged();
+//                listaNoua.remove(i);
+//                adapter.notifyDataSetChanged();
+                SharedPreferences sp= getSharedPreferences("obiecteFavorite", MODE_PRIVATE);
+                SharedPreferences.Editor editor=sp.edit();
+                editor.putString(listaNoua.get(i).getKey(), listaNoua.get(i).toString());
+                editor.commit();
                 return false;
             }
         });

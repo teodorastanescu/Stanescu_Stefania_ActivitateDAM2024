@@ -14,6 +14,8 @@ public class Terasă implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @NotNull
+
+    private  int id;
     private String denumire;
 
 
@@ -45,6 +47,7 @@ public class Terasă implements Parcelable {
     }
 
     protected Terasă(Parcel in) {
+        id=in.readInt();
         denumire = in.readString();
         capacitate = in.readInt();
         rating = in.readFloat();
@@ -54,6 +57,7 @@ public class Terasă implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(denumire);
         dest.writeInt(capacitate);
         dest.writeFloat(rating);
@@ -98,6 +102,14 @@ public class Terasă implements Parcelable {
         return status;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setDenumire(String denumire) {
         this.denumire = denumire;
     }
@@ -118,8 +130,16 @@ public class Terasă implements Parcelable {
         this.status = status;
     }
 
-    public Boolean isStatus() {
-        return status;
+//    public Boolean isStatus() {
+//        return status;
+//    }
+
+    public String getKey(){
+        StringBuilder sb= new StringBuilder();
+        sb.append(this.denumire);
+        sb.append(",");
+        sb.append(this.capacitate);
+        return sb.toString();
     }
 
     @Override
