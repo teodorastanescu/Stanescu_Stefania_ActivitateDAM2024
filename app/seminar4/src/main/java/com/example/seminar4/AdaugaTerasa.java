@@ -43,7 +43,7 @@ public class AdaugaTerasa extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra("terasa"))
         {
-            Terasă terasa = intent.getParcelableExtra("apartament");
+            Terasă terasa = intent.getParcelableExtra("terasa");
             EditText etDenumire= findViewById(R.id.editTextText);
             EditText etCapacitate= findViewById(R.id.editTextText2);
             RatingBar etRating= findViewById(R.id.ratingBar);
