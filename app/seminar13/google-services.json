@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "849602960313",
+    "project_id": "stanesscustefania-semiar13",
+    "storage_bucket": "stanesscustefania-semiar13.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849602960313:android:96447bd8345cc46096b468",
+        "android_client_info": {
+          "package_name": "com.example.seminar13"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1zRh5kaPMbt0duzJefEi_w7gjOFTopBU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

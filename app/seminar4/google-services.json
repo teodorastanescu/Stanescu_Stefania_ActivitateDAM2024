@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "87963437131",
+    "project_id": "stanescustefania-seminardam",
+    "storage_bucket": "stanescustefania-seminardam.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87963437131:android:d58bf6e3158efe984ba5ce",
+        "android_client_info": {
+          "package_name": "com.example.seminar4"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrFV0VSXqk8AJv4WaaQHVJzi6lZc92_jE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
